@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>NoiseRobustAudioCodec-demo</title>
+    <title>CycleCodec-demo</title>
     
-    <meta name="description" content="Demo Page for ERVQ">
+    <meta name="description" content="Demo Page for CycleCodec">
     
     <meta name="author" content="">
 
@@ -41,33 +41,33 @@
   <div class="container">
 
     <div class="section-title text-center center">
-        <h1 style="color:black"><strong><br><br> Enhancing Noise Robustness in Audio Codecs via Progressive Probabilistic Top-K Sampling in Residual Vector Quantization Using Only Clean Speech</strong></h1>
+        <h1 style="color:black"><strong><br><br> CycleCodec: Pretrain-Free Factorized Neural Speech Codec via Cycle-Consistent Speaker Swapping</strong></h1>
         <br><br> 
         <span style="color: black; font-size: 1.1em;">
             Authors:
         </span>
+        Anonymous Author(s).
         <a href="https://zhengrachel.github.io/" class="author-link">Rui-Chen Zheng</a>, 
+        <a href="https://jzmzhong.github.io/" class="author-link">Jinzuomu Zhong</a>, 
+        <a href="https://scholar.google.com/citations?user=2XO1xGAAAAAJ&hl=en&oi=ao" class="author-link">Nicholas Sanders</a>,
+        <a href="https://homepages.inf.ed.ac.uk/korin/sitenew/index.html" class="author-link">Korin Richmond</a>,  
         <a href="http://staff.ustc.edu.cn/~yangai/" class="author-link">Yang Ai</a>, 
-        <a href="https://scholar.google.com/citations?user=uO28CqcAAAAJ&hl=en&oi=ao" class="author-link">Hui-Peng Du</a>, 
         <span style="color: black; font-size: 1.1em;">and</span>
         <a href="http://staff.ustc.edu.cn/~zhling/#!index.md" class="author-link">Zhen-Hua Ling</a>
     </div>
 
-    <!-- <div class="portfolio-item"> 
-        <img style="border:0px solid black;" src="img/ERVQ.png" class="img-responsive" alt="ERVQ"><br><br>
-    </div>  -->
+    <div class="portfolio-item" style="max-width:400px; margin:0 auto;">
+        <img src="img/CycleCodec.png" class="img-responsive" alt="CycleCodec" style="border:0;">
+    </div>
+
 
     <div class="row">
       
           <div class="col-md-10 col-md-offset-1">
 
                 <p style="color:black; font-family:Sans-Serif; font-size:16px">                         
-                    Noise robustness remains a critical challenge in the development of neural audio codecs, particularly for real-world speech communication scenarios. 
-                    This paper presents a novel training strategy, progressive probabilistic top-K sampling, designed to enhance the noise robustness of audio codecs while training exclusively on clean speech data. 
-                    Unlike traditional residual vector quantization (RVQ) methods that select the closest codebook vector, our approach probabilistically samples from the top-K closest candidates, simulating noise at the code level and enabling the model to handle unseen noisy conditions. 
-                    Additionally, we propose a progressive training strategy that gradually introduces the noise robustness from the final quantizer to the first quantizer in the RVQ structure. 
-                    Experimental results on one of the most advanced audio codecs demonstrate significant improvements in noise robustness, with PESQ increasing from 2.399 to 2.466 for decoded noisy speech, while maintaining high-quality performance for clean speech. 
-                </p> <br><hr><br>
+                    Factorized neural speech codecs often rely on supervision from pretrained self-supervised learning (SSL) encoders or automatic speech recognition (ASR) systems to disentangle content and speaker information. However, this dependency limits their applicability to low-resource languages where reliable teachers are unavailable during training. In this paper, we propose CycleCodec, a pretrain-free factorized codec trained entirely from scratch. We introduce a cycle-consistent speaker swapping strategy that enforces functional separability between time-varying content and global speaker streams via self-supervised reconstruction constraints. We further enhance the speaker representation using a query-based Transformer aggregator. Experiments on in-domain (English) and unseen languages (Mandarin and Vietnamese) show that CycleCodec significantly outperforms pretrain-free baselines and achieves more robust speaker-content disentanglement on unseen languages.
+                </p> <br><hr>
       
           </div>
     </div>
@@ -80,501 +80,801 @@
       <!-- <div class="col-md-20 col-md-offset--100"> -->
 
         <br><br><br>
-        <p style="color:black; font-family:Sans-Serif; font-size:32px;"> Experimental Results: Coding Noisy Speech</p>
-        <!-- <p style="color:gray; font-family:Sans-Serif; font-size:20px;"> For more samples, please refer to <a href="https://anonymous.4open.science/r/ERVQ-A907/SpeechCoding"><strong>this folder</strong></a>. </p> -->
+        <p style="color:black; font-family:Sans-Serif; font-size:32px;"> Experimental Results: Reconstruction</p>
 
         <br><br><br>
-        <p style="color:black; font-family:Sans-Serif; font-size:24px;"> EnCodec @ 6kbps for 24kHz Audio</p>
-        
-        <br><br>
+        <p style="color:black; font-family:Sans-Serif; font-size:24px;"> LibriTTS test-clean (English)</p>
 
         <div style="width:1600px; margin:0 auto;">
 
             <table align="center"border=0 justify="center" cellpadding="20px" style="width: 60%">
                 <tr>
                 
-                <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Input Noisy</th>
-                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Closest</th>
-                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Closest*</th>
-                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Proposed</th>
-                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Proposed† </th>
+                <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Input</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">LSCodec</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">TiCodec</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">CycleCodec</th>
                 </tr>
 
 
                 <tr>
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p360_019-OOFFICE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/input_noisy/p360_019-OOFFICE.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p360_019-OOFFICE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest/p360_019-OOFFICE.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p360_019-OOFFICE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest_star/p360_019-OOFFICE.wav"></audio>
                     </td>
 
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p360_019-OOFFICE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/proposed/p360_019-OOFFICE.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p360_019-OOFFICE.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p360_019-OOFFICE.wav"></audio>
                     </td>
                 </tr>
 
                 <tr>
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p361_020-DKITCHEN.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/input_noisy/p361_020-DKITCHEN.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p361_020-DKITCHEN.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest/p361_020-DKITCHEN.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p361_020-DKITCHEN.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest_star/p361_020-DKITCHEN.wav"></audio>
                     </td>
 
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p361_020-DKITCHEN.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/proposed/p361_020-DKITCHEN.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p361_020-DKITCHEN.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p361_020-DKITCHEN.wav"></audio>
                     </td>
                 </tr>
 
                 <tr>
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p362_107-OHALLWAY.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/input_noisy/p362_107-OHALLWAY.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p362_107-OHALLWAY.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest/p362_107-OHALLWAY.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p362_107-OHALLWAY.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest_star/p362_107-OHALLWAY.wav"></audio>
                     </td>
 
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p362_107-OHALLWAY.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/proposed/p362_107-OHALLWAY.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p362_107-OHALLWAY.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p362_107-OHALLWAY.wav"></audio>
                     </td>
                 </tr>
 
 
                 <tr>
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p363_108-DLIVING.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/input_noisy/p363_108-DLIVING.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p363_108-DLIVING.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest/p363_108-DLIVING.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p363_108-DLIVING.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest_star/p363_108-DLIVING.wav"></audio>
                     </td>
 
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p363_108-DLIVING.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/proposed/p363_108-DLIVING.wav"></audio>
                     </td>
 
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p363_108-DLIVING.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p363_108-DLIVING.wav"></audio>
-                    </td>
                 </tr>
 
                 <tr>
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p364_009-SPSQUARE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/input_noisy/p364_009-SPSQUARE.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p364_009-SPSQUARE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest/p364_009-SPSQUARE.wav"></audio>
                     </td>
             
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p364_009-SPSQUARE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/closest_star/p364_009-SPSQUARE.wav"></audio>
                     </td>
 
                     <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p364_009-SPSQUARE.png" alt="Spectrogram" width="300"><br>
                     <audio width="300" controls><source src="wav/noisy/proposed/p364_009-SPSQUARE.wav"></audio>
                     </td>
 
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p364_009-SPSQUARE.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p364_009-SPSQUARE.wav"></audio>
-                    </td>
                 </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p374_296-PCAFETER.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/input_noisy/p374_296-PCAFETER.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p374_296-PCAFETER.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/closest/p374_296-PCAFETER.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p374_296-PCAFETER.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/closest_star/p374_296-PCAFETER.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p374_296-PCAFETER.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed/p374_296-PCAFETER.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p374_296-PCAFETER.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p374_296-PCAFETER.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/p376_351-TMETRO.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/input_noisy/p376_351-TMETRO.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/p376_351-TMETRO.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/closest/p376_351-TMETRO.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/p376_351-TMETRO.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/closest_star/p376_351-TMETRO.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/p376_351-TMETRO.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed/p376_351-TMETRO.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/p376_351-TMETRO.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/p376_351-TMETRO.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/input_noisy/s5_159-OHALLWAY.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/input_noisy/s5_159-OHALLWAY.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/closest/s5_159-OHALLWAY.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/closest/s5_159-OHALLWAY.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                        <img src="wav/noisy/closest_star/s5_159-OHALLWAY.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/closest_star/s5_159-OHALLWAY.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed/s5_159-OHALLWAY.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed/s5_159-OHALLWAY.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/noisy/proposed_dag/s5_159-OHALLWAY.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/noisy/proposed_dag/s5_159-OHALLWAY.wav"></audio>
-                    </td>
-                </tr>
-
 
             </table>
 
         </div>
 
+        <br><p style="color:black; font-family:Sans-Serif; font-size:24px;"> Seed-tts-zh (Mandarin)</p>
+
+        <div style="width:1600px; margin:0 auto;">
+
+            <table align="center"border=0 justify="center" cellpadding="20px" style="width: 60%">
+                <tr>
+                
+                <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Input</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">LSCodec</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">TiCodec</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">CycleCodec</th>
+                </tr>
+
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p360_019-OOFFICE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p360_019-OOFFICE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p360_019-OOFFICE.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p360_019-OOFFICE.wav"></audio>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p363_108-DLIVING.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p363_108-DLIVING.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p363_108-DLIVING.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p363_108-DLIVING.wav"></audio>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+        <br><p style="color:black; font-family:Sans-Serif; font-size:24px;"> VieNeu-TTS-140h (Vietnamese)</p>
+
+        <div style="width:1600px; margin:0 auto;">
+
+            <table align="center"border=0 justify="center" cellpadding="20px" style="width: 60%">
+                <tr>
+                
+                <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Input</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">LSCodec</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">TiCodec</th>
+                <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">CycleCodec</th>
+                </tr>
+
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p360_019-OOFFICE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p360_019-OOFFICE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p360_019-OOFFICE.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p360_019-OOFFICE.wav"></audio>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p361_020-DKITCHEN.wav"></audio>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p362_107-OHALLWAY.wav"></audio>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p363_108-DLIVING.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p363_108-DLIVING.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p363_108-DLIVING.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p363_108-DLIVING.wav"></audio>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/input_noisy/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+            
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/closest_star/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+
+                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
+                    <audio width="300" controls><source src="wav/noisy/proposed/p364_009-SPSQUARE.wav"></audio>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
         
-    </div>
+    </div><hr>
 
 
     <div class="section-title text-center center">
         <!-- <div class="col-md-20 col-md-offset--100"> -->
   
           <br><br><br>
-          <p style="color:black; font-family:Sans-Serif; font-size:32px;"> Experimental Results: Coding Clean Speech</p>
+          <p style="color:black; font-family:Sans-Serif; font-size:32px;"> Experimental Results: Disentanglement</p>
           <!-- <p style="color:gray; font-family:Sans-Serif; font-size:20px;"> For more samples, please refer to <a href="https://anonymous.4open.science/r/ERVQ-A907/SpeechCoding"><strong>this folder</strong></a>. </p> -->
   
           <br><br><br>
-          <p style="color:black; font-family:Sans-Serif; font-size:24px;"> EnCodec @ 6kbps for 24kHz Audio</p>
+          <p style="color:black; font-family:Sans-Serif; font-size:24px;"> LibriTTS test-clean (English)</p>
+  
+          <div class='table-wrap'>
+      <table border='0' cellpadding='20' style='width:100%; table-layout:fixed;'>
+        <thead>
+          <tr>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Source Text</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Source Speech</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Reference Speech</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">LSCodec</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">TiCodec</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">CycleCodec</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">The rain drops were still dripping and gleaming from the trees, flashing back the heavy yellow sunlight.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">But the middle class wife still carries on the business of vicarious leisure, for the good name of the household and its master.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">This was why he held several long conferences with his friend Marshall, the manager at the mill.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">The chaos in which his ardour extinguished itself was a cold indifferent knowledge of himself.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">Yes, his mother was hostile to the idea, as he had read from her listless silence.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div><br>
+
+    <p style="color:black; font-family:Sans-Serif; font-size:24px;"> Seed-tts-zh (Mandarin)</p>
+  
+          <div class='table-wrap'>
+      <table border='0' cellpadding='20' style='width:100%; table-layout:fixed;'>
+        <thead>
+          <tr>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Source Text</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Source Speech</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Reference Speech</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">LSCodec</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">TiCodec</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">CycleCodec</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">The rain drops were still dripping and gleaming from the trees, flashing back the heavy yellow sunlight.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">But the middle class wife still carries on the business of vicarious leisure, for the good name of the household and its master.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">This was why he held several long conferences with his friend Marshall, the manager at the mill.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">The chaos in which his ardour extinguished itself was a cold indifferent knowledge of himself.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">Yes, his mother was hostile to the idea, as he had read from her listless silence.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div><br>
+
+    <p style="color:black; font-family:Sans-Serif; font-size:24px;"> VieNeu-TTS-140h (Vietnamese)</p>
+  
+          <div class='table-wrap'>
+      <table border='0' cellpadding='20' style='width:100%; table-layout:fixed;'>
+        <thead>
+          <tr>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Source Text</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Source Speech</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Reference Speech</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">LSCodec</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">TiCodec</th>
+            <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">CycleCodec</th>
+          </tr>
+        </thead>
+        <tbody>
+         <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">The rain drops were still dripping and gleaming from the trees, flashing back the heavy yellow sunlight.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1995_1837_000020_000000-1995_1837_000012_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">But the middle class wife still carries on the business of vicarious leisure, for the good name of the household and its master.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/3570_5694_000009_000002-3570_5695_000001_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">This was why he held several long conferences with his friend Marshall, the manager at the mill.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/6829_68771_000046_000000-6829_68771_000012_000002.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">The chaos in which his ardour extinguished itself was a cold indifferent knowledge of himself.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1089_134686_000032_000008-1089_134686_000009_000003.wav"></audio>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%; text-align: center; padding: 10px; color:black">
+                    <p style="color:black; font-family:Comic Sans MS; font-size:15px;">Yes, his mother was hostile to the idea, as he had read from her listless silence.</p>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/prompt/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                    <audio controls><source src="tts_demo/wavtokenizer_40Hz/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+        
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres08/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres07/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+
+               <td class='audio-cell'>
+                <audio controls><source src="tts_demo/varstok_thres06/1089_134686_000032_000008-1089_134691_000004_000000.wav"></audio>
+                </td>
+            </tr>
+
+        </tbody>
+      </table>
+      <br><br>
+    </div>
+  
           
-          <br><br>
-  
-          <div style="width:1600px; margin:0 auto;">
-  
-              <table align="center"border=0 justify="center" cellpadding="20px" style="width: 60%">
-                  <tr>
-                  
-                  <th style=" background-color:white;position: sticky; top: 0; width: 20%; text-align: center; padding: 10px; color:black">Groundtruth</th>
-                  <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Closest</th>
-                  <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Closest*</th>
-                  <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Proposed</th>
-                  <th style=" background-color:white; position: sticky; top: 0;width: 20%; text-align: center; padding: 10px; color:black">Proposed† </th>
-                  </tr>
-  
-  
-                  <tr>
-                      <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                      <img src="wav/clean/groundtruth/p360_019.png" alt="Spectrogram" width="300"><br>
-                      <audio width="300" controls><source src="wav/clean/groundtruth/p360_019.wav"></audio>
-                      </td>
-              
-                      <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                      <img src="wav/clean/closest/p360_019.png" alt="Spectrogram" width="300"><br>
-                      <audio width="300" controls><source src="wav/clean/closest/p360_019.wav"></audio>
-                      </td>
-              
-                      <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                      <img src="wav/clean/closest_star/p360_019.png" alt="Spectrogram" width="300"><br>
-                      <audio width="300" controls><source src="wav/clean/closest_star/p360_019.wav"></audio>
-                      </td>
-  
-                      <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                      <img src="wav/clean/proposed/p360_019.png" alt="Spectrogram" width="300"><br>
-                      <audio width="300" controls><source src="wav/clean/proposed/p360_019.wav"></audio>
-                      </td>
-  
-                      <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                      <img src="wav/clean/proposed_dag/p360_019.png" alt="Spectrogram" width="300"><br>
-                      <audio width="300" controls><source src="wav/clean/proposed_dag/p360_019.wav"></audio>
-                      </td>
-                  </tr>
-  
-                  <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/p361_020.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/p361_020.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/p361_020.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/p361_020.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/p361_020.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/p361_020.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/p361_020.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/p361_020.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/p361_020.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/p361_020.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/p362_107.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/p362_107.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/p362_107.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/p362_107.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/p362_107.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/p362_107.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/p362_107.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/p362_107.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/p362_107.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/p362_107.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/p363_108.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/p363_108.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/p363_108.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/p363_108.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/p363_108.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/p363_108.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/p363_108.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/p363_108.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/p363_108.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/p363_108.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/p364_009.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/p364_009.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/p364_009.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/p364_009.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/p364_009.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/p364_009.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/p364_009.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/p364_009.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/p364_009.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/p364_009.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/p374_296.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/p374_296.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/p374_296.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/p374_296.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/p374_296.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/p374_296.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/p374_296.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/p374_296.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/p374_296.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/p374_296.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/p376_351.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/p376_351.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/p376_351.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/p376_351.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/p376_351.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/p376_351.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/p376_351.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/p376_351.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/p376_351.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/p376_351.wav"></audio>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/groundtruth/s5_159.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/groundtruth/s5_159.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest/s5_159.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest/s5_159.wav"></audio>
-                    </td>
-            
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/closest_star/s5_159.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/closest_star/s5_159.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed/s5_159.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed/s5_159.wav"></audio>
-                    </td>
-
-                    <td style="width: 20%; text-align: center; padding: 10px; color:black">
-                    <img src="wav/clean/proposed_dag/s5_159.png" alt="Spectrogram" width="300"><br>
-                    <audio width="300" controls><source src="wav/clean/proposed_dag/s5_159.wav"></audio>
-                    </td>
-                </tr>
-  
-  
-              </table>
-  
-          </div>
-  
-          
-      </div>
+    </div>
 
 </div>
 </div>
